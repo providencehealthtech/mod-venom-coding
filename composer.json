@@ -1,0 +1,24 @@
+{
+    "name": "providencehealthtech/module-venom-coding",
+    "description": "Support the use of VeNom coding set in OpenEMR",
+    "type": "openemr-module",
+    "authors": [
+      {
+        "name": "Robert Down",
+        "email": "robertdown@live.com",
+        "role": "Developer"
+      }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+      "psr-4": {"ProvidenceHealthTech\\VeNom\\": "src/"}
+    },
+    "require": {
+      "openemr/oe-module-installer-plugin": "^0.1.0",
+      "php": "^7.1",
+      "symfony/event-dispatcher": "^4.4.0"
+    },
+    "conflict": {
+      "openemr/openemr": "<6.0.0"
+    }
+  }
