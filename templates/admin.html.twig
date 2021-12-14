@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ "VeNom Coding"|xlt }}</title>
+    {{ setupHeader() }}
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>VeNom Coding</h1>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Revision Date</th>
+                        <th>Version</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for row in versions %}
+                    <tr>
+                        <td>{{ row.revision_date }}</td>
+                        <td>{{ row.revision_version }}</td>
+                        <td>{{ row.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 text-center">
+            {% if not installAllowed %}
+                <a href="#" class="btn btn-primary btn-lg" id="btnInstallVenom"><i class="fa fa-plus fa-sm pt-1"></i>&nbsp;{{ "Install Venom Coding"|xlt }}</a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded', e => {
+    btnInstallListener();
+});
+
+async function doInstall()
+{
+    let url = "{{ installURL }}";
+    let response = await fetch(url);
+    const body = await response.text();
+    return body;
+}
+
+function btnInstallListener()
+{
+    let btnInstall = document.getElementById('btnInstallVenom');
+    btnInstall.addEventListener('click', e => {
+        doInstall().then(body => {
+            console.debug(body)
+        });
+    });
+}
+</script>
+
+</html>

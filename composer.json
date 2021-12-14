@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "stable",
     "autoload": {
-      "psr-4": {"ProvidenceHealthTech\\VeNom\\": "src/"}
+      "psr-4": {"ProvidenceHealthTech\\Venom\\": "src/"}
     },
     "require": {
       "openemr/oe-module-installer-plugin": "^0.1.0",
