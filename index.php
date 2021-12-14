@@ -5,6 +5,7 @@
 
 use OpenEMR\Common\Acl\AclMain;
 use OpenEMR\Common\Twig\TwigContainer;
+use ProvidenceHealthTech\Venom\Bootstrap;
 use ProvidenceHealthTech\Venom\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Extension\DebugExtension;
@@ -17,17 +18,7 @@ if (!AclMain::aclCheckCore('admin', 'super')) {
     exit;
 }
 
-$templateDir =
-    DIRECTORY_SEPARATOR
-    . "openemr"
-    . DIRECTORY_SEPARATOR
-    . $GLOBALS['rootdir']
-    . DIRECTORY_SEPARATOR
-    . "modules/custom_modules/venom"
-    . DIRECTORY_SEPARATOR
-    . "templates"
-    . DIRECTORY_SEPARATOR;
-
+$templateDir = Bootstrap::getTemplatePath();
 $twigContainer = new TwigContainer($templateDir);
 $twig = $twigContainer->getTwig();
 $twig->addExtension(new DebugExtension());

@@ -17,7 +17,7 @@ class Bootstrap
 {
     const MODULE_INSTALLATION_PATH = "/interface/modules/custom_modules/";
 
-    const MODULE_NAME = "venom";
+    const MODULE_NAME = "module-venom-coding";
 
     /**
      * @var EventDispatcherInterface
@@ -123,7 +123,7 @@ class Bootstrap
 	    return $event;
 	}
 
-    public function getTemplatePath()
+    static public function getTemplatePath()
     {
         return \dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR;
     }
