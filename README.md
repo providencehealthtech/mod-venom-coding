@@ -2,10 +2,12 @@
 
 Copyright (c) 2021 Providence HealthTech. All Rights Reserved.
 
-This module creates the table structure for VeNom coding support. Three tables are created, venom_dx, venom_dx_test, and venom_proc. Currently, this module just secures a namespace and installs the tables. The ability to actually import records requires changes to the codebase (which will be submitted) via a PR to allow support or by improving the Event dispatcher.
+This module creates the table structure for VeNom coding support. Several tables are created: venom_dx, venom_dx_test, venom_admin and venom_proc. If the actual VeNom codes file is placed into `contrib/venom/` of the main OpenEMR installation, this module will differentiate the Excel file into the appropriate tables. Additionally, the Code Types list is appended, inserting the various VeNom codes.
 
-## This Module Does Not Do What You Think It Does
-This module, by itself, will not provide full support at this time. You MUST have the correct changes in the core codebase to support the actual insertion of these codes.
+## To-Do
+* Expand UI of module
+* Allow for each breed and species to be added as Lists
+* Automate the assigning of the Code Type list item to the External Code Type
 
 ## Pre-requisites
 
@@ -22,7 +24,10 @@ This module, by itself, will not provide full support at this time. You MUST hav
 * In OpenEMR
 
     * Go to Modules Manager
-    * Register, Install, and Enable
+        * Register, Install, and Enable the module
+    * Go to Admin -> Forms -> Lists
+        * Select Code Types List
+        * Corelate the Venom rows to the appropriate External code type
 
 ## Table Structure
 
@@ -35,9 +40,12 @@ This table includes all codes with a subset of diagnostic tests.
 ### venom_proc
 This table includes all codes with a subset of procedure
 
+### venom_admin
+This table includes all codes with a subset of administrative tasks
+
 ---
 
-Note, this module does not provide the actual VeNom codes, those must be
+Note, this module does _not_ provide the actual VeNom codes, those must be
 secured by the end user separately and placed in a specific location on the
 filesystem in OpenEMR. To acquire the VeNom code set, visit
 http://venomcoding.org/
