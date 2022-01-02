@@ -7,7 +7,6 @@ namespace ProvidenceHealthTech\Venom\Service;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-require_once "{$GLOBALS['fileroot']}/custom/code_types.inc.php";
 require_once "{$GLOBALS['srcdir']}/standard_tables_capture.inc";
 
 class Setup

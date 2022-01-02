@@ -44,18 +44,17 @@ class Bootstrap
 
     public function externalCodeEventListener(ExternalCodesCreatedEvent $event)
     {
-
         $externalCodes = $event->getexternalCodeData();
+
 
         // Insert the external code tables into the global external codes array
         $venomCodes = $this->getVenomCodeTableIds();
 
-        foreach ($venomCodes as $id => $title) {
-            $externalCodes[$id] = $title;
-            $this->service->createExternalTable();
+        foreach ($venomCodes as $code) {
+            $externalCodes[$code['ct_id']] = $code['ct_label'];
+            $newCodes[] = $this->service->createExternalTable();
         }
-
-        $event->setExternalCodeData([]);
+        $event->setExternalCodeData($externalCodes);
 
         return $event;
     }
