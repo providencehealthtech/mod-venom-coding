@@ -1,5 +1,5 @@
 {
-    "name": "providencehealthtech/module-venom-coding",
+    "name": "providencehealthtech/mod-venom-coding",
     "description": "Support the use of VeNom coding set in OpenEMR",
     "type": "openemr-module",
     "authors": [
@@ -16,6 +16,7 @@
     "require": {
       "openemr/oe-module-installer-plugin": "^0.1.0",
       "php": "^7.1",
+      "phpoffice/phpspreadsheet": "^1.20.0",
       "symfony/event-dispatcher": "^4.4.0"
     },
     "conflict": {

@@ -8,6 +8,7 @@ namespace ProvidenceHealthTech\Venom\Service;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 require_once "{$GLOBALS['srcdir']}/standard_tables_capture.inc";
+require_once "{$GLOBALS['fileroot']}/custom/code_types.inc.php";
 
 class Setup
 {
@@ -135,9 +136,9 @@ class Setup
         }
 
         foreach ($this->externalCodeTables as $table => $title) {
-            $sql = "INSERT INTO `code_types`
+            $sql = 'INSERT INTO `code_types`
                 (ct_key, ct_id, ct_seq, ct_mod, ct_just, ct_fee, ct_rel, ct_nofs, ct_diag, ct_active, ct_label, ct_external, ct_claim, ct_proc, ct_term, ct_problem)
-                VALUES(?, ?, ?, 0, '', 1, 0, 0, 1, 1, ?, 1, 1, 1, 1, 1);";
+                VALUES(?, ?, ?, 0, "", 1, 0, 0, 1, 1, ?, 1, 1, 1, 1, 1);';
             sqlStatementNoLog($sql, [$table, $nextCtId, $nextCtSeq, $title]);
             $nextCtId++;
             $nextCtSeq++;
@@ -238,20 +239,7 @@ class Setup
                     }
 
                     if ($tableName) {
-                        $sql = "INSERT INTO $tableName SET
-                            dict_id = ?
-                            , term = ?
-                            , approved = ?
-                            , active = ?
-                            , subset_id = ?
-                            , subset = ?
-                            , first_release = ?
-                            , top_level_model = ?
-                            , large = ?
-                            , small = ?
-                            , farm = ?
-                            , exotic = ?
-                            , equine = ?";
+                        $sql = "INSERT INTO `$tableName` SET dict_id = ?, term = ?, approved = ?, active = ?, subset_id = ?, subset = ?, first_release = ?, top_level_model = ?, large = ?, small = ?, farm = ?, exotic = ?, equine = ?";
                         sqlStatementNoLog($sql, $dataArray[$i]);
                     }
                 }
