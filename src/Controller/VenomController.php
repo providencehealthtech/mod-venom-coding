@@ -5,6 +5,7 @@
 
 namespace ProvidenceHealthTech\Venom\Controller;
 
+use OpenEMR\Common\Acl\AclMain;
 use ProvidenceHealthTech\Venom\Bootstrap;
 use ProvidenceHealthTech\Venom\Controller\Controller;
 use ProvidenceHealthTech\Venom\Controller\ControllerInterface;
@@ -24,6 +25,7 @@ class VenomController extends Controller implements ControllerInterface
     {
         $versions = $this->service->getVersion();
         $moduleName = Bootstrap::MODULE_NAME;
+
         return [
             'installURL' => "{$GLOBALS['rootdir']}/modules/custom_modules/{$moduleName}/index.php?controller=setup&action=install",
             'versions' => $versions
