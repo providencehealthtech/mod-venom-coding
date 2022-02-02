@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ "VeNom Coding"|xlt }}</title>
-    {{ setupHeader() }}
+    {{ setupHeader('dialog') }}
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container mt-2">
     <div class="row">
         <div class="col-12">
             <h1>VeNom Coding</h1>
         </div>
         <div class="col-12">
+            {% if versions|length > 0 %}
             <table class="table">
                 <thead>
                     <tr>
@@ -31,17 +32,42 @@
                         <td>{{ row.name }}</td>
                     </tr>
                 {% endfor %}
+
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <p class="lead">{{ "No VeNom Sets Installed"|xlt }}</p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+            {% endif %}
         </div>
-        <div class="col-12 text-center">
-            {% if not installAllowed %}
-                <a href="#" class="btn btn-primary btn-lg" id="btnInstallVenom"><i class="fa fa-plus fa-sm pt-1"></i>&nbsp;{{ "Install Venom Coding"|xlt }}</a>
+        <div class="col-4 offset-4 text-center">
+            {% if installAllowed %}
+                <a href="#" class="btn btn-block btn-secondary btn-lg" id="btnInstallVenom"><i class="fa fa-plus fa-sm pt-1"></i>&nbsp;{{ "Install Venom Coding"|xlt }}</a>
             {% endif %}
 
         </div>
     </div>
 </div>
+
+<div class="modal" tabindex="-1" id="installResultModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">{{ "Install Results"|xlt }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" id="installResultBody"></div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "OK"|xlt }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </body>
 
@@ -50,8 +76,24 @@ window.addEventListener('DOMContentLoaded', e => {
     btnInstallListener();
 });
 
+var btnInnerHTML = "";
+
+function manageButton(action)
+{
+    let btnInstall = document.getElementById('btnInstallVenom');
+    if (action == 'lock') {
+        btnInnerHTML = btnInstall.innerHTML;
+        btnInstall.innerHTML = "<i class='fa fa-circle-notch fa-spin'></i>&nbsp;{{ 'Installing'|xlt }}";
+        btnInstall.classList.add("disabled");
+    } else if (action == 'unlock') {
+        btnInstall.innerHTML = btnInnerHTML;
+        btnInstall.classList.remove("disabled");
+    }
+}
+
 async function doInstall()
 {
+    manageButton('lock');
     let url = "{{ installURL }}";
     let response = await fetch(url);
     const body = await response.text();
@@ -64,6 +106,9 @@ function btnInstallListener()
     btnInstall.addEventListener('click', e => {
         doInstall().then(body => {
             console.debug(body)
+            document.getElementById('installResultBody').innerHTML = body;
+            $("#installResultModal").modal('show');
+            manageButton('unlock');
         });
     });
 }

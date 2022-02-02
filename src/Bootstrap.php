@@ -17,7 +17,7 @@ class Bootstrap
 {
     const MODULE_INSTALLATION_PATH = "/interface/modules/custom_modules/";
 
-    const MODULE_NAME = "module-venom-coding";
+    const MODULE_NAME = "mod-venom-coding";
 
     /**
      * @var EventDispatcherInterface
@@ -46,7 +46,6 @@ class Bootstrap
     {
         $externalCodes = $event->getexternalCodeData();
 
-
         // Insert the external code tables into the global external codes array
         $venomCodes = $this->getVenomCodeTableIds();
 
@@ -56,6 +55,9 @@ class Bootstrap
         }
         $event->setExternalCodeData($externalCodes);
 
+        echo "<pre>";
+        var_dump($externalCodes);
+        die();
         return $event;
     }
 
@@ -96,7 +98,7 @@ class Bootstrap
 	    $menuItem->label = xlt("VeNom Coding");
 	    // TODO: pull the install location into a constant into the codebase so if OpenEMR changes this location it
         // doesn't break any modules.
-	    $menuItem->url = self::MODULE_INSTALLATION_PATH . "/" . self::MODULE_NAME;
+	    $menuItem->url = self::MODULE_INSTALLATION_PATH . self::MODULE_NAME;
 	    $menuItem->children = [];
 
 	    /**
